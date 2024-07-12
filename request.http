@@ -1,0 +1,8 @@
+POST http://localhost:5075/api/mailbuilder
+Content-Type: application/json
+Accept: application/json
+
+{
+  "usedMail": "me@fanto.dev",
+  "toSend": "contact@atzbhv.de"
+}
