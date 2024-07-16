@@ -32,7 +32,7 @@ jobs:
 
       - name: Extract Git tag
         id: get_tag
-        run: echo "::set-output name=GIT_TAG::$(git describe --tags --abbrev=0 2>/dev/null || echo latest)"
+        run: echo "$(git describe --tags --abbrev=0 2>/dev/null || echo latest)"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
@@ -56,5 +56,9 @@ jobs:
       - name: Ssh into vpns
         run: |
           ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} << 'EOF'
-          echo "SSH connection established." >> iwasthere.txt
+          docker pull ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+          docker stop ${{ env.IMAGE_NAME }} || true
+          docker stop ${{ env.IMAGE_NAME }} || true
+          docker rm ${{ env.IMAGE_NAME }} || true
+          docker run -d --name ${{ env.IMAGE_NAME }} -p 8088:8080 ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           EOF
