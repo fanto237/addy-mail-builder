@@ -39,8 +39,7 @@ jobs:
           context: .
           push: true
           tags: |
-            - ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.GIT_TAG }}
-            - ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.GIT_TAG }}, ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest
