@@ -32,16 +32,19 @@ jobs:
 
       - name: Extract Git tag
         id: get_tag
-        run: echo "$(git describe --tags --abbrev=0 2>/dev/null || echo latest)"
+        run: echo "::set-output name=GIT_TAG::$(git describe --tags --abbrev=0 2>/dev/null || echo latest)"
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.GIT_TAG }}
-            ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+      - name: Print tag
+        run: echo ${{ steps.get_tag.outputs.GIT_TAG }}
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: |
+      #       ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ steps.get_tag.outputs.GIT_TAG }}
+      #       ${{ env.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
   deploy:
     runs-on: ubuntu-latest
