@@ -1,0 +1,10 @@
+name: Tagging
+on: workflow_dispatch
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: echo ${{ github.ref_name }}
