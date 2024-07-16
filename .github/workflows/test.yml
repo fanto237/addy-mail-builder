@@ -10,4 +10,4 @@ jobs:
     steps:
       - name: Get tag
         id: get_tag
-        run: echo ${{ github.ref_name }}
+        run: echo "$(git describe --tags --abbrev=0)""
