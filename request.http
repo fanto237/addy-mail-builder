@@ -1,4 +1,4 @@
-@MailBuilder_HostAddress = http://localhost:5075
+@MailBuilder_HostAddress = http://192.168.31.214:6543
 
 GET {{MailBuilder_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -10,6 +10,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "usedMail": "me@fanto.dev",
-  "toSend": "roland.john@tertia.de"
+  "usedMail": "ndrafted638@fanto.addymail.com",
+  "toSend": "ihrsdfseantwort@dhl.de"
 }
