@@ -1,5 +1,8 @@
 name: Tagging
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - release
 
 jobs:
   tag:
