@@ -32,7 +32,7 @@ jobs:
 
       - name: Extract Git tag
         id: get_tag
-        run: echo "GIT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo latest)" >> $GITHUB_OUTPUT
+        run: echo "GIT_TAG=$(git describe --tags --abbrev=0 || echo latest)" >> $GITHUB_OUTPUT
 
       - name: Print tag
         run: echo ${{ steps.get_tag.outputs.GIT_TAG }}
