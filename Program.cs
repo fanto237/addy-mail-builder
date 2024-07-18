@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// builder.Services.AddScoped<ILogger, Logger>();
 
 var app = builder.Build();
 
@@ -16,10 +17,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 
-app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity) =>
+app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity, ILogger<Program> logger, HttpContext ctx) =>
     {
         var test = new BadRequestResult();
         // if (entity is null) return result;
@@ -37,12 +38,10 @@ app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity) =>
             Result = result
         };
 
+        var remoteIpAddress = ctx.Connection.RemoteIpAddress?.ToString();
+        logger.LogInformation($"Request from {remoteIpAddress} processed and result is {result}");
+
         return response;
     })
     .WithOpenApi();
-// app.Run(async (context) =>
-// {
-//     context.Response.Headers.Append("MyHeader", "MyHeaderValue");
-//     await context.Response.WriteAsync("Hello World");
-// });
 app.Run();
