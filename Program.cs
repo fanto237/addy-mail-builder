@@ -22,8 +22,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity, ILogger<Program> logger, HttpContext ctx) =>
     {
-        var test = new BadRequestResult();
-        // if (entity is null) return result;
+        if (entity is null) return new Response() { Status = "error", Result = "Invalid request" };
         var toSend = entity.ToSend;
         var usedMail = entity.UsedMail;
         var toSendReformat = toSend.Replace('@', '=');

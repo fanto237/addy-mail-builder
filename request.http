@@ -1,5 +1,6 @@
 # @MailBuilder_HostAddress = http://localhost:5072
-@MailBuilder_HostAddress = http://localhost:5000
+@MailBuilder_HostAddress = http://37.114.58.223:8088
+# @MailBuilder_HostAddress = http://localhost:5000
 
 GET {{MailBuilder_HostAddress}}/weatherforecast/
 Accept: application/json
@@ -11,6 +12,6 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "usedMail": "ndrafted638@fanto.addymail.com",
-  "toSend": "ihrsdfseantwort@dhl.de"
+  "usedMail": "gracious.recycling118@fanto.dev",
+  "toSend": "aufenthaltstitel@ing.de"
 }
