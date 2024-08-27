@@ -9,11 +9,11 @@ pipeline{
 
     stage("Build"){
       steps{
-        dir("addy-mail-builder"){
+        // dir("addy-mail-builder"){
           sh "dotnet clean"
           sh "dotnet restore"
           sh "dotnet build"
-        }
+        // }
       }
     }
 
