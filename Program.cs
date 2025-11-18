@@ -20,14 +20,14 @@ if (app.Environment.IsDevelopment())
 // app.UseHttpsRedirection();
 
 
-app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity, ILogger<Program> logger, HttpContext ctx) =>
+app.MapPost("/api/mailbuilder", static ([FromBody] MailBuild entity, ILogger<Program> logger, HttpContext ctx) =>
     {
         if (entity is null) return new Response() { Status = "error", Result = "Invalid request" };
         var toSend = entity.ToSend;
         var usedMail = entity.UsedMail;
         var toSendReformat = toSend.Replace('@', '=');
-        var firstSub = usedMail.Substring(0, usedMail.IndexOf('@'));
-        var secondSub = usedMail.Substring(usedMail.IndexOf('@'));
+        var firstSub = usedMail[..usedMail.IndexOf('@')];
+        var secondSub = usedMail[usedMail.IndexOf('@')..];
 
         var result = $"{firstSub}+{toSendReformat}{secondSub}";
 
@@ -38,7 +38,7 @@ app.MapPost("/api/mailbuilder", ([FromBody] MailBuild entity, ILogger<Program> l
         };
 
         var remoteIpAddress = ctx.Connection.RemoteIpAddress?.ToString();
-        logger.LogInformation($"Request from {remoteIpAddress} processed and result is {result}");
+        logger.LogInformation("Request from {remoteIpAddress} processed and result is {result}", remoteIpAddress, result);
 
         return response;
     })
